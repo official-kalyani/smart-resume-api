@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "Installing dependencies..."
+echo "Running composer install..."
 composer install --no-dev --optimize-autoloader
 
 echo "Generating application key..."

@@ -1,11 +1,9 @@
-/node_modules
-/public/hot
-/public/storage
-/storage/*.key
-/vendor
+# .dockerignore
+node_modules
 .env
+/public/hot
+/storage/*.key
 .phpunit.result.cache
-Homestead.json
-Homestead.yaml
+Homestead.*
 npm-debug.log
 yarn-error.log
