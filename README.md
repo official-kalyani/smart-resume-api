@@ -169,4 +169,13 @@ Example:
 
 Send the request.
 
+->Logout (Requires Auth)
+URL: POST /api/logout
+
+Headers:
+
+
+Authorization: Bearer {TOKEN}
+Response: 200 OK
+
 
