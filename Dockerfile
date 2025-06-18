@@ -1,26 +1,20 @@
-FROM php:8.2-fpm
+FROM richarvey/nginx-php-fpm:3.1.6
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    git curl libpng-dev libonig-dev libxml2-dev zip unzip nginx sqlite3 libsqlite3-dev
+COPY . .
 
-# Install PHP extensions
-RUN docker-php-ext-install pdo pdo_mysql pdo_sqlite mbstring exif pcntl bcmath gd
+# Image config
+ENV SKIP_COMPOSER 1
+ENV WEBROOT /var/www/html/public
+ENV PHP_ERRORS_STDERR 1
+ENV RUN_SCRIPTS 1
+ENV REAL_IP_HEADER 1
 
-# Install Composer
-COPY --from=composer:2.6 /usr/bin/composer /usr/bin/composer
+# Laravel config
+ENV APP_ENV production
+ENV APP_DEBUG false
+ENV LOG_CHANNEL stderr
 
-# Set working directory
-WORKDIR /var/www
+# Allow composer to run as root
+ENV COMPOSER_ALLOW_SUPERUSER 1
 
-COPY . /var/www
-
-# Permissions
-RUN chown -R www-data:www-data /var/www \
-    && chmod -R 755 /var/www
-
-# Expose port
-EXPOSE 80
-
-# Start Laravel server via Nginx + PHP-FPM
-CMD php artisan migrate --force && php artisan config:cache && php artisan serve --host=0.0.0.0 --port=80
+CMD ["/start.sh"]
