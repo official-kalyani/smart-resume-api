@@ -24,7 +24,7 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/resumes', [ResumeController::class, 'store']);
+    Route::post('/upload-resumes', [ResumeController::class, 'store']);
     Route::get('/resumes', [ResumeController::class, 'index']);
     Route::get('/resumes/{id}', [ResumeController::class, 'show']);
     Route::delete('/resumes/{id}', [ResumeController::class, 'destroy']);

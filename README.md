@@ -49,7 +49,7 @@ This API allows users to register, login, upload resumes (PDF), view, search, an
 > All the following endpoints require the `Authorization: Bearer {TOKEN}` header.
 
 #### 📤 Upload Resume
-- **URL:** `/api/resumes`
+- **URL:** `/api/upload-resumes`
 - **Method:** `POST`
 - **Headers:**
   ```
