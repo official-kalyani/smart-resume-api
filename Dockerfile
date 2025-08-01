@@ -4,9 +4,9 @@ WORKDIR /var/www
 
 RUN apt-get update && apt-get install -y \
     zip unzip curl git libxml2-dev libzip-dev libpng-dev libjpeg-dev libonig-dev \
-    sqlite3 libsqlite3-dev
+    sqlite3 libsqlite3-dev libpq-dev
 
-RUN docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd zip
+RUN docker-php-ext-install pdo pdo_mysql pdo_sqlite mbstring exif pcntl bcmath gd zip
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
@@ -14,11 +14,20 @@ COPY . /var/www
 COPY --chown=www-data:www-data . /var/www
 
 RUN chmod -R 755 /var/www
-RUN composer install
 
+# Install PHP dependencies
+RUN composer install --no-dev --optimize-autoloader
+
+# Laravel environment and setup
 COPY .env.example .env
 RUN php artisan key:generate
+
+# Ensure SQLite DB exists (if using SQLite)
+RUN touch database/database.sqlite
+
+# Run migrations and cache config/routes/views
 RUN php artisan migrate --force
+RUN php artisan config:cache && php artisan route:cache && php artisan view:cache
 
 EXPOSE 8000
 CMD php artisan serve --host=0.0.0.0 --port=8000
