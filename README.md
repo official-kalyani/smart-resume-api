@@ -13,10 +13,10 @@ This API allows users to register, login, upload resumes (PDF), view, search, an
 - **Body (JSON):**
   ```json
   {
-    "name": "John Doe",
-    "email": "johndoe@example.com",
-    "password": "password",
-    "password_confirmation": "password"
+    "name": "tt Doe",
+    "email": "tt@example.com",
+    "password": "12345678",
+    "password_confirmation": "12345678"
   }
   ```
 - **Response:** `201 Created`
@@ -27,9 +27,11 @@ This API allows users to register, login, upload resumes (PDF), view, search, an
 - **Body (JSON):**
   ```json
   {
-    "email": "johndoe@example.com",
-    "password": "password"
+    "email": "tt@example.com",
+    "password": "12345678"
   }
+
+  Bearer Token : "3|Js5iETfpYgxRbLtfOrt28dAHPMdUltOeWUh8b1C00ba5f455"
   ```
 - **Response:** `200 OK` (includes token)
 
