@@ -26,7 +26,6 @@ RUN php artisan key:generate
 RUN touch database/database.sqlite
 
 # Run migrations and cache config/routes/views
-RUN php artisan migrate --force
 RUN php artisan config:cache && php artisan route:cache && php artisan view:cache
 
 EXPOSE 8000
